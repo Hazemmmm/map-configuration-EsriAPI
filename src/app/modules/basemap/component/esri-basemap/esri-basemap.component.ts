@@ -9,6 +9,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { loadModules } from 'esri-loader';
+
 import esri = __esri;
 
 @Component({
@@ -25,7 +26,11 @@ export class EsriBasemapComponent implements OnInit {
   private _center: Array<number> = [0.1278, 51.5074];
   private _basemap = 'streets';
   private _loaded = false;
- _view!: esri.MapView;
+  private _WFS!: esri.FeatureLayer;
+  private _map!: esri.Map;
+  private _mapViewProperties!: esri.MapViewProperties;
+  private _view!: esri.MapView;
+  private _mapProperties!: esri.MapProperties;
 
   get mapLoaded(): boolean {
     return this._loaded;
@@ -60,35 +65,6 @@ export class EsriBasemapComponent implements OnInit {
 
   constructor() {}
 
-  async initializeMap() {
-    try {
-
-      const [EsriMap, EsriMapView] = (await loadModules([
-        'esri/Map',
-        'esri/views/MapView',
-      ])) as [esri.MapConstructor, esri.MapViewConstructor];
-
-      const mapProperties: esri.MapProperties = {
-        basemap: this._basemap,
-      };
-
-      const map: esri.Map = new EsriMap(mapProperties);
-      const mapViewProperties: esri.MapViewProperties = {
-        container: this.arcMapRef.nativeElement,
-        center: this._center,
-        zoom: this._zoom,
-        map: map,
-      };
-
-      this._view = new EsriMapView(mapViewProperties);
-      await this._view.when();
-      // return this._view;
-    }
-    catch (error) {
-      console.log('EsriLoader: ', error);
-    }
-  }
-
   ngOnInit() {
     this.initializeMap().then((m) => {
       console.log('mapView ready: ', this._view.ready);
@@ -97,4 +73,40 @@ export class EsriBasemapComponent implements OnInit {
     });
   }
 
+  async initializeMap() {
+    try {
+      const [EsriMap, EsriMapView, FeatureLayer] = await loadModules([
+        'esri/Map',
+        'esri/views/MapView',
+        'esri/layers/FeatureLayer',
+      ]);
+
+      this._mapProperties = {
+        basemap: this._basemap,
+      };
+
+      this._map = new EsriMap(this._mapProperties);
+      this._mapViewProperties = {
+        container: this.arcMapRef.nativeElement,
+        center: this._center,
+        zoom: this._zoom,
+        map: this._map,
+      };
+
+      this._view = new EsriMapView(this._mapViewProperties);
+      await this._view.when();
+      this._WFS = new FeatureLayer({
+        url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessmentStatePlane/MapServer/0',
+      });
+      this._map.add(this._WFS);
+      this.setMapViewToFeatureLayerExtent(this._WFS);
+    } catch (error) {
+      console.log('EsriLoader: ', error);
+    }
+  }
+
+  setMapViewToFeatureLayerExtent(WFS: esri.FeatureLayer): void {
+    WFS.queryExtent().then(res => this._view.goTo(res.extent));
+
+  }
 }
