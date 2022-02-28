@@ -24,7 +24,7 @@ export class EsriBasemapComponent implements OnInit {
   private arcMapRef!: ElementRef;
   private _zoom = 10;
   private _center: Array<number> = [0.1278, 51.5074];
-  private _basemap = 'streets';
+  private _basemap = 'arcgis-streets';
   private _loaded = false;
   private _WFS!: esri.FeatureLayer;
   private _map!: esri.Map;
@@ -67,7 +67,6 @@ export class EsriBasemapComponent implements OnInit {
 
   ngOnInit() {
     this.initializeMap().then((m) => {
-      console.log('mapView ready: ', this._view.ready);
       this._loaded = this._view.ready;
       this.mapLoadedEvent.emit(true);
     });
@@ -99,14 +98,15 @@ export class EsriBasemapComponent implements OnInit {
         url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessmentStatePlane/MapServer/0',
       });
       this._map.add(this._WFS);
+      console.log(this._WFS);
+
       this.setMapViewToFeatureLayerExtent(this._WFS);
     } catch (error) {
-      console.log('EsriLoader: ', error);
+      console.log(`Basemap can't be loaded due to this error: ${error}`);
     }
   }
 
   setMapViewToFeatureLayerExtent(WFS: esri.FeatureLayer): void {
-    WFS.queryExtent().then(res => this._view.goTo(res.extent));
-
+    WFS.queryExtent().then((res) => this._view.goTo(res.extent));
   }
 }
