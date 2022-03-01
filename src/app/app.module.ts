@@ -8,24 +8,23 @@ import { TableMapComponent } from './modules/basemap/component/kendo-table-map/t
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { GridModule } from '@progress/kendo-angular-grid';
+
 
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EsriBasemapComponent,
-    TableMapComponent
-  ],
+  declarations: [AppComponent, EsriBasemapComponent, TableMapComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     InputsModule,
     BrowserAnimationsModule,
-    ButtonsModule
+    ButtonsModule,
+    GridModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DistributionService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
