@@ -5,12 +5,9 @@
       [pageSize]="20"
       [pageable]="true"
       [sortable]="true"
-      [groupable]="true"
       [reorderable]="true"
       [resizable]="true"
       [height]="400"
-      [draggable]="true"
-      [columnMenu]="{ filter: true }"
     >
       <ng-template kendoGridToolbarTemplate>
         <input
@@ -21,22 +18,27 @@
         />
         <kendo-grid-spacer></kendo-grid-spacer>
       </ng-template>
-      <kendo-grid-column field="incident_name" title="Incident Name" [width]="220">
+        <kendo-grid-column field="objectid" title="Incident Name" [width]="220">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <div>{{ dataItem.objectid }}</div>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="incidentnm" title="Incident Name" [width]="220">
         <ng-template kendoGridCellTemplate let-dataItem>
           <div>{{ dataItem.incidentnm}}</div>
         </ng-template>
       </kendo-grid-column>
-      <kendo-grid-column field="Inspection_timeStamp" title="Inspection Date Time" [width]="220">
+      <kendo-grid-column field="inspdate" title="Inspection Date Time" [width]="220">
         <ng-template kendoGridCellTemplate let-dataItem>
           <div>{{ dataItem.inspdate  | date:'M/d/yyyy,  h:mm a' }}</div>
         </ng-template>
       </kendo-grid-column>
-      <kendo-grid-column field="full_name" title="Contact First Name" [width]="220">
+      <kendo-grid-column field="firstname" title="Contact First Name" [width]="220">
         <ng-template kendoGridCellTemplate let-dataItem>
           <div>{{ dataItem.firstname}}</div>
         </ng-template>
       </kendo-grid-column>
-      <kendo-grid-column  [width]="25">
+      <kendo-grid-column  [width]="35">
         <ng-template kendoGridCellTemplate let-dataItem>
           <div>
             <button kendoButton icon="plus" rounded="full" (click)="onClick(dataItem.objectid)"></button>

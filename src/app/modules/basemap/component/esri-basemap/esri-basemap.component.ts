@@ -66,15 +66,15 @@ export class EsriBasemapComponent implements OnInit {
 
   constructor(private mapService: EsriMapService) {}
 
-  ngOnInit() {
-    this.initializeMap().then((m) => {
-      this._loaded = this._view.ready;
-      this.mapLoadedEvent.emit(true);
-    });
-    this.handleSelectedFeature();
+  ngOnInit(): void {
+      this.initializeMap().then((m) => {
+        this._loaded = this._view.ready;
+        this.mapLoadedEvent.emit(true);
+      }).catch((err) => console.error(err)
+      )
   }
 
-  async initializeMap() {
+  async initializeMap(): Promise<void> {
     try {
       const [EsriMap, EsriMapView, FeatureLayer] = await loadModules([
         'esri/Map',
@@ -103,15 +103,16 @@ export class EsriBasemapComponent implements OnInit {
       this._map.add(this._WFS);
       this.setMapViewToFeatureLayerExtent(this._WFS);
       this.getAllFeatures(this._WFS);
+      this.handleSelectedFeature(this._view);
     } catch (error) {
       console.log(`Basemap can't be loaded due to this error: ${error}`);
     }
   }
 
-  handleSelectedFeature(): void{
+  handleSelectedFeature(view: esri.MapView): void {
       this.mapService.filterQuery$.subscribe((query: string) => {
         let highlightSelect: esri.Handle;
-        this._view.whenLayerView(this._WFS).then((layerView) => {
+        view.whenLayerView(this._WFS).then((layerView) => {
           const queryFeature = this._WFS.createQuery();
           queryFeature.where = `objectid='${query}'`;
           this._WFS.queryFeatures(queryFeature).then((res) => {
@@ -123,7 +124,7 @@ export class EsriBasemapComponent implements OnInit {
               feature.attributes['OBJECTID']
             );
 
-            this._view.goTo(
+            view.goTo(
               {
                 target: feature.geometry,
                 zoom: 22,
@@ -137,6 +138,7 @@ export class EsriBasemapComponent implements OnInit {
         });
       });
   }
+
   getAllFeatures(WFS: esri.FeatureLayer): void {
     WFS.queryFeatures().then((res) => {
       res.features?.forEach((feature) => {
@@ -145,6 +147,7 @@ export class EsriBasemapComponent implements OnInit {
     this.mapService.featuresData$.next(this.featuresArr);
     });
   }
+
   setMapViewToFeatureLayerExtent(WFS: esri.FeatureLayer): void {
     WFS.queryExtent().then((res) => this._view.goTo(res.extent));
   }

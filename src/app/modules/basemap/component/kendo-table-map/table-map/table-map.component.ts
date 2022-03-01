@@ -15,7 +15,6 @@ export class TableMapComponent implements OnInit {
   dataBinding!: DataBindingDirective;
   public gridData: esri.Graphic[] = [];
   public gridView: esri.Graphic[] = [];
-
   public mySelection: string[] = [];
 
   constructor(private mapService: EsriMapService) {}
@@ -36,36 +35,29 @@ export class TableMapComponent implements OnInit {
   }
 
   onFilter(inputValue: any): void {
-    console.log(inputValue);
-
     this.gridView = process(this.gridData, {
       filter: {
         logic: 'or',
         filters: [
           {
-            field: 'full_name',
+            field: 'objectid',
             operator: 'contains',
-            value: inputValue,
+            value: inputValue.value.toString(),
           },
           {
-            field: 'job_title',
+            field: 'incidentnm',
             operator: 'contains',
-            value: inputValue,
+            value: inputValue.value,
           },
           {
-            field: 'budget',
+            field: 'inspdate',
             operator: 'contains',
-            value: inputValue,
+            value: inputValue.value,
           },
           {
-            field: 'phone',
+            field: 'firstname',
             operator: 'contains',
-            value: inputValue,
-          },
-          {
-            field: 'address',
-            operator: 'contains',
-            value: inputValue,
+            value: inputValue.value,
           },
         ],
       },
@@ -73,4 +65,5 @@ export class TableMapComponent implements OnInit {
 
     this.dataBinding.skip = 0;
   }
+
 }
