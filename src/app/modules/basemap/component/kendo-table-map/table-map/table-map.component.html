@@ -17,7 +17,12 @@
           kendoTextBox
           (input)="onFilter($event.target)"
         />
+
+        <app-configuration-dialog></app-configuration-dialog>
+        <!-- <button kendoButton (click)="handleMapConfiguration()"><span class="k-icon k-i-wrench"></span> Map Configuration</button> -->
+        <!-- <div kendoDialogContainer></div> -->
         <kendo-grid-spacer></kendo-grid-spacer>
+
       </ng-template>
         <kendo-grid-column field="objectid" title="Incident Name" [width]="220">
         <ng-template kendoGridCellTemplate let-dataItem>

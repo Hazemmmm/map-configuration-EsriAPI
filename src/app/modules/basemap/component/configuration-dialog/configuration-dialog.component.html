@@ -1,0 +1,22 @@
+
+    <button kendoButton *ngIf="!opened" (click)="open()"><span class="k-icon k-i-wrench"></span> Map Configuration</button>
+
+
+  <!-- <button kendoButton *ngIf="!opened" (click)="open()">Open dialog</button> -->
+    <kendo-dialog
+      *ngIf="opened"
+      (close)="close('cancel')"
+      [width]="1000"
+      [height]="500"
+      title="Status"
+    >
+      <p style="text-align: center; padding-top: 5em;">
+        Your escape pod is now ready.
+      </p>
+
+      <kendo-dialog-actions>
+        <button kendoButton themeColor="primary" (click)="close('yes')">
+          Launch
+        </button>
+      </kendo-dialog-actions>
+    </kendo-dialog>

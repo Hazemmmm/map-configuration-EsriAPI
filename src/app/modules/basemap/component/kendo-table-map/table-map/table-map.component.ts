@@ -2,7 +2,11 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { DataBindingDirective } from "@progress/kendo-angular-grid";
 import { process } from "@progress/kendo-data-query";
 import { EsriMapService } from "../../../services/esri-map.service";
-
+import {
+  DialogService,
+  DialogRef,
+  DialogCloseResult,
+} from '@progress/kendo-angular-dialog';
 import esri = __esri;
 
 @Component({
@@ -16,8 +20,11 @@ export class TableMapComponent implements OnInit {
   public gridData: esri.Graphic[] = [];
   public gridView: esri.Graphic[] = [];
   public mySelection: string[] = [];
-
-  constructor(private mapService: EsriMapService) {}
+  public result: any;
+  constructor(
+    private mapService: EsriMapService,
+    private dialogService: DialogService
+  ) {}
 
   public ngOnInit(): void {
     this.setGridData();
@@ -66,4 +73,24 @@ export class TableMapComponent implements OnInit {
     this.dataBinding.skip = 0;
   }
 
+  handleMapConfiguration(): void {
+    const dialog: DialogRef = this.dialogService.open({
+      title: 'Please confirm',
+      content: 'Are you sure?',
+      actions: [{ text: 'No' }, { text: 'Yes', themeColor: 'primary' }],
+      width: 450,
+      height: 200,
+      minWidth: 250,
+    });
+
+    dialog.result.subscribe((result) => {
+      if (result instanceof DialogCloseResult) {
+        console.log('close');
+      } else {
+        console.log('action', result);
+      }
+
+      this.result = JSON.stringify(result);
+    });
+  }
 }

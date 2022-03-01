@@ -26,7 +26,7 @@ export class EsriBasemapComponent implements OnInit {
   private arcMapRef!: ElementRef;
   private _zoom = 10;
   private _center: Array<number> = [0.1278, 51.5074];
-  private _basemap = 'arcgis-streets';
+  private _basemap = 'satellite';
   private _loaded = false;
   private _WFS!: esri.FeatureLayer;
   private _map!: esri.Map;
@@ -68,11 +68,12 @@ export class EsriBasemapComponent implements OnInit {
   constructor(private mapService: EsriMapService) {}
 
   ngOnInit(): void {
-      this.initializeMap().then((m) => {
+    this.initializeMap()
+      .then((m) => {
         this._loaded = this._view.ready;
         this.mapLoadedEvent.emit(true);
-      }).catch((err) => console.error(err)
-      )
+      })
+      .catch((err) => console.error(err));
   }
 
   async initializeMap(): Promise<void> {
@@ -111,33 +112,31 @@ export class EsriBasemapComponent implements OnInit {
   }
 
   handleSelectedFeature(view: esri.MapView): void {
-      this.mapService.filterQuery$.subscribe((query: string) => {
-        let highlightSelect: esri.Handle;
-        view.whenLayerView(this._WFS).then((layerView) => {
-          const queryFeature = this._WFS.createQuery();
-          queryFeature.where = `objectid='${query}'`;
-          this._WFS.queryFeatures(queryFeature).then((res) => {
-            if (highlightSelect) {
-              highlightSelect.remove();
-            }
-            const feature:esri.Graphic = res.features[0];
-            highlightSelect = layerView.highlight(
-              feature.attributes['OBJECTID']
-            );
+    this.mapService.filterQuery$.subscribe((query: string) => {
+      let highlightSelect: esri.Handle;
+      view.whenLayerView(this._WFS).then((layerView) => {
+        const queryFeature = this._WFS.createQuery();
+        queryFeature.where = `objectid='${query}'`;
+        this._WFS.queryFeatures(queryFeature).then((res) => {
+          if (highlightSelect) {
+            highlightSelect.remove();
+          }
+          const feature: esri.Graphic = res.features[0];
+          highlightSelect = layerView.highlight(feature.attributes['OBJECTID']);
 
-            view.goTo(
-              {
-                target: feature.geometry,
-                zoom: 22,
-              },
-              {
-                duration: 2000,
-                easing: 'ease-in-out',
-              }
-            );
-          });
+          view.goTo(
+            {
+              target: feature.geometry,
+              zoom: 22,
+            },
+            {
+              duration: 2000,
+              easing: 'ease-in-out',
+            }
+          );
         });
       });
+    });
   }
 
   getAllFeatures(WFS: esri.FeatureLayer): void {
@@ -145,7 +144,7 @@ export class EsriBasemapComponent implements OnInit {
       res.features?.forEach((feature) => {
         this.featuresArr.push(feature.attributes);
       });
-    this.mapService.featuresData$.next(this.featuresArr);
+      this.mapService.featuresData$.next(this.featuresArr);
     });
   }
 
