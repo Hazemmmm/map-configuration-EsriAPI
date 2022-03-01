@@ -24,12 +24,15 @@ export class TableMapComponent implements OnInit {
     this.setGridData();
   }
 
-
   setGridData(): void {
-     this.mapService.featuresData$.subscribe((features) => {
-       this.gridData = features;
-       this.gridView = this.gridData;
-     });
+    this.mapService.featuresData$.subscribe((features) => {
+      this.gridData = features;
+      this.gridView = this.gridData;
+    });
+  }
+
+  onClick(event: string): void {
+    this.mapService.filterQuery$.next(event);
   }
 
   onFilter(inputValue: any): void {
@@ -70,8 +73,4 @@ export class TableMapComponent implements OnInit {
 
     this.dataBinding.skip = 0;
   }
-
-
-
-
 }

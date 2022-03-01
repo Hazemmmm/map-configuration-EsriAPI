@@ -36,10 +36,10 @@
           <div>{{ dataItem.firstname}}</div>
         </ng-template>
       </kendo-grid-column>
-      <kendo-grid-column  [width]="50">
+      <kendo-grid-column  [width]="25">
         <ng-template kendoGridCellTemplate let-dataItem>
           <div>
-            <button kendoButton icon="plus" rounded="full"></button>
+            <button kendoButton icon="plus" rounded="full" (click)="onClick(dataItem.objectid)"></button>
           </div>
         </ng-template>
       </kendo-grid-column>

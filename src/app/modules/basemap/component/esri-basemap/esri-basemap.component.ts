@@ -71,6 +71,7 @@ export class EsriBasemapComponent implements OnInit {
       this._loaded = this._view.ready;
       this.mapLoadedEvent.emit(true);
     });
+    this.handleSelectedFeature();
   }
 
   async initializeMap() {
@@ -107,6 +108,35 @@ export class EsriBasemapComponent implements OnInit {
     }
   }
 
+  handleSelectedFeature(): void{
+      this.mapService.filterQuery$.subscribe((query: string) => {
+        let highlightSelect: esri.Handle;
+        this._view.whenLayerView(this._WFS).then((layerView) => {
+          const queryFeature = this._WFS.createQuery();
+          queryFeature.where = `objectid='${query}'`;
+          this._WFS.queryFeatures(queryFeature).then((res) => {
+            if (highlightSelect) {
+              highlightSelect.remove();
+            }
+            const feature:esri.Graphic = res.features[0];
+            highlightSelect = layerView.highlight(
+              feature.attributes['OBJECTID']
+            );
+
+            this._view.goTo(
+              {
+                target: feature.geometry,
+                zoom: 22,
+              },
+              {
+                duration: 2000,
+                easing: 'ease-in-out',
+              }
+            );
+          });
+        });
+      });
+  }
   getAllFeatures(WFS: esri.FeatureLayer): void {
     WFS.queryFeatures().then((res) => {
       res.features?.forEach((feature) => {
