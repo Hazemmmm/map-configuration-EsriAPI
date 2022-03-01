@@ -10,9 +10,10 @@
       [height]="400"
     >
       <ng-template kendoGridToolbarTemplate>
+        <label [for]="">ObjectId: </label>
         <input
           [style.width.px]="165"
-          placeholder="Max ObjectId"
+          placeholder="ObjectId"
           kendoTextBox
           (input)="onFilter($event.target)"
         />
