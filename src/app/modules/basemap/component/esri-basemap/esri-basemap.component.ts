@@ -9,6 +9,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { loadModules } from 'esri-loader';
+import { EsriMapService } from '../../services/esri-map.service';
 
 import esri = __esri;
 
@@ -31,7 +32,7 @@ export class EsriBasemapComponent implements OnInit {
   private _mapViewProperties!: esri.MapViewProperties;
   private _view!: esri.MapView;
   private _mapProperties!: esri.MapProperties;
-
+  featuresArr: esri.Graphic[] = [];
   get mapLoaded(): boolean {
     return this._loaded;
   }
@@ -63,7 +64,7 @@ export class EsriBasemapComponent implements OnInit {
     return this._basemap;
   }
 
-  constructor() {}
+  constructor(private mapService: EsriMapService) {}
 
   ngOnInit() {
     this.initializeMap().then((m) => {
@@ -96,16 +97,24 @@ export class EsriBasemapComponent implements OnInit {
       await this._view.when();
       this._WFS = new FeatureLayer({
         url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessmentStatePlane/MapServer/0',
+        outFields: ['*'],
       });
       this._map.add(this._WFS);
-      console.log(this._WFS);
-
       this.setMapViewToFeatureLayerExtent(this._WFS);
+      this.getAllFeatures(this._WFS);
     } catch (error) {
       console.log(`Basemap can't be loaded due to this error: ${error}`);
     }
   }
 
+  getAllFeatures(WFS: esri.FeatureLayer): void {
+    WFS.queryFeatures().then((res) => {
+      res.features?.forEach((feature) => {
+        this.featuresArr.push(feature.attributes);
+      });
+    this.mapService.featuresData$.next(this.featuresArr);
+    });
+  }
   setMapViewToFeatureLayerExtent(WFS: esri.FeatureLayer): void {
     WFS.queryExtent().then((res) => this._view.goTo(res.extent));
   }
