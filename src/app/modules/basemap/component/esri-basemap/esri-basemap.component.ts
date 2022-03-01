@@ -9,6 +9,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { loadModules } from 'esri-loader';
+import { environment } from 'src/environments/environment';
 import { EsriMapService } from '../../services/esri-map.service';
 
 import esri = __esri;
@@ -97,7 +98,7 @@ export class EsriBasemapComponent implements OnInit {
       this._view = new EsriMapView(this._mapViewProperties);
       await this._view.when();
       this._WFS = new FeatureLayer({
-        url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessmentStatePlane/MapServer/0',
+        url: environment.WFS_Url,
         outFields: ['*'],
       });
       this._map.add(this._WFS);
