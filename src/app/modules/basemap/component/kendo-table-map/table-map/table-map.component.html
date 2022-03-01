@@ -23,23 +23,23 @@
       </ng-template>
       <kendo-grid-column field="incident_name" title="Incident Name" [width]="220">
         <ng-template kendoGridCellTemplate let-dataItem>
-          <div>{{ dataItem.incidentnm }}</div>
+          <div>{{ dataItem.incidentnm}}</div>
         </ng-template>
       </kendo-grid-column>
       <kendo-grid-column field="Inspection_timeStamp" title="Inspection Date Time" [width]="220">
         <ng-template kendoGridCellTemplate let-dataItem>
-          <div>{{ dataItem.inspdate }}</div>
+          <div>{{ dataItem.inspdate  | date:'M/d/yyyy,  h:mm a' }}</div>
         </ng-template>
       </kendo-grid-column>
       <kendo-grid-column field="full_name" title="Contact First Name" [width]="220">
         <ng-template kendoGridCellTemplate let-dataItem>
-          <div>{{ dataItem.firstname }}</div>
+          <div>{{ dataItem.firstname}}</div>
         </ng-template>
       </kendo-grid-column>
       <kendo-grid-column  [width]="50">
         <ng-template kendoGridCellTemplate let-dataItem>
           <div>
-            <button kendoButton></button>
+            <button kendoButton icon="plus" rounded="full"></button>
           </div>
         </ng-template>
       </kendo-grid-column>
