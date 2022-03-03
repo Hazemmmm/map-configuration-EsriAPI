@@ -1,22 +1,87 @@
 
-    <button kendoButton *ngIf="!opened" (click)="open()"><span class="k-icon k-i-wrench"></span> Map Configuration</button>
+<h2 mat-dialog-title>Map Settings</h2>
+<mat-dialog-content class="mat-typography">
+<div
+  class="container"
+  fxLayout="column"
+
+  fxLayoutGap="25rem"
+  fxLayout.gt-md="row"
+>
+  <section>
+   <mat-toolbar class="custom-toolbar">
+  <mat-icon>gps_fixed</mat-icon>
+  <span></span>
+  <mat-label>Cluster Radius</mat-label> <span></span>
+  <mat-form-field appearance="standard">
+    <input type="search" matInput placeholder="" class="input-custom"/>
+  </mat-form-field>
+  <span></span>
+  <mat-label>M</mat-label>
+</mat-toolbar>
+  </section>
+  <section>
+     <mat-toolbar class="custom-toolbar">
+  <mat-icon>import_export</mat-icon>
+  <span></span>
+  <mat-label>Geo Fencing</mat-label> <span></span>
+  <mat-form-field appearance="standard">
+    <input type="search" matInput placeholder="" class="input-custom" />
+  </mat-form-field>
+  <span></span>
+  <mat-label>M</mat-label>
+</mat-toolbar>
+  </section>
+
+</div>
+  <!-- <div class="container" >
+
+<mat-toolbar class="custom-toolbar">
+  <mat-icon>gps_fixed</mat-icon>
+  <span></span>
+  <mat-label>Cluster Radius</mat-label> <span></span>
+  <mat-form-field>
+    <input type="search" matInput placeholder="Search" />
+  </mat-form-field>
+  <span></span>
+  <mat-label>M</mat-label>
+</mat-toolbar>
+
+    <mat-icon>gps_fixed</mat-icon>
+    <span></span>
+    <mat-label>Cluster Radius</mat-label> <span></span>
+     <mat-form-field>
+       <input type="search" matInput placeholder="Search" />
+      </mat-form-field>
+    <span></span>
+    <mat-label>M</mat-label>
+</div> -->
+
+    <!-- <mat-form-field appearance="outline">
+       <span class="example-spacer"></span>
+      <mat-icon matPrefix class="example-icon">search</mat-icon>
+      <input type="search" matInput placeholder="Search" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-select value="">
+        <mat-option >
+           name
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
 
 
-  <!-- <button kendoButton *ngIf="!opened" (click)="open()">Open dialog</button> -->
-    <kendo-dialog
-      *ngIf="opened"
-      (close)="close('cancel')"
-      [width]="1000"
-      [height]="500"
-      title="Status"
-    >
-      <p style="text-align: center; padding-top: 5em;">
-        Your escape pod is now ready.
-      </p>
+</mat-dialog-content>
 
-      <kendo-dialog-actions>
-        <button kendoButton themeColor="primary" (click)="close('yes')">
-          Launch
-        </button>
-      </kendo-dialog-actions>
-    </kendo-dialog>
+<h2 mat-dialog-title>End Event Duration</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Develop across all platforms</h3>
+  <p>Learn one way to build applications with Angular and reuse your code and abilities to build
+    apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="start">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button class="d-flex" mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

@@ -11,6 +11,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { ConfigurationDialogComponent } from './modules/basemap/component/configuration-dialog/configuration-dialog.component';
+import { MaterialModule } from './shared/material/material.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ConfigurationDialogComponent } from './modules/basemap/component/config
     ButtonsModule,
     GridModule,
     DialogsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

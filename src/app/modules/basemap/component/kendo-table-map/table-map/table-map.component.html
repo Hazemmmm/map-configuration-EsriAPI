@@ -18,7 +18,8 @@
           (input)="onFilter($event.target)"
         />
 
-        <app-configuration-dialog></app-configuration-dialog>
+        <button mat-button (click)="openDialog()"> <mat-icon>settings</mat-icon> <span></span> Map Configuration</button>
+        <!-- <app-configuration-dialog></app-configuration-dialog> -->
         <!-- <button kendoButton (click)="handleMapConfiguration()"><span class="k-icon k-i-wrench"></span> Map Configuration</button> -->
         <!-- <div kendoDialogContainer></div> -->
         <kendo-grid-spacer></kendo-grid-spacer>

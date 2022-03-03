@@ -8,7 +8,8 @@ import {
   DialogCloseResult,
 } from '@progress/kendo-angular-dialog';
 import esri = __esri;
-
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfigurationDialogComponent } from "../../configuration-dialog/configuration-dialog.component";
 @Component({
   selector: 'app-table-map',
   templateUrl: './table-map.component.html',
@@ -23,7 +24,8 @@ export class TableMapComponent implements OnInit {
   public result: any;
   constructor(
     private mapService: EsriMapService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    public dialog: MatDialog
   ) {}
 
   public ngOnInit(): void {
@@ -91,6 +93,14 @@ export class TableMapComponent implements OnInit {
       }
 
       this.result = JSON.stringify(result);
+    });
+  }
+
+  openDialog(): void {
+    this.dialog.open(ConfigurationDialogComponent, {
+      data: {
+        animal: 'panda',
+      },
     });
   }
 }
