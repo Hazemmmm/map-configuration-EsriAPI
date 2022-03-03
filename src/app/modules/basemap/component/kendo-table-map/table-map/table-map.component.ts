@@ -8,7 +8,7 @@ import {
   DialogCloseResult,
 } from '@progress/kendo-angular-dialog';
 import esri = __esri;
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfigurationDialogComponent } from "../../configuration-dialog/configuration-dialog.component";
 @Component({
   selector: 'app-table-map',
@@ -97,10 +97,12 @@ export class TableMapComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialog.open(ConfigurationDialogComponent, {
-      data: {
-        animal: 'panda',
-      },
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "100%"
+
+
+    this.dialog.open(ConfigurationDialogComponent, dialogConfig);
   }
 }

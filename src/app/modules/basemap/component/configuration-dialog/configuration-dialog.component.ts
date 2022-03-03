@@ -25,7 +25,16 @@ export class ConfigurationDialogComponent implements OnInit {
   ]);
 
   matcher = new MyErrorStateMatcher();
+  toppings = new FormControl();
 
+  toppingList: string[] = [
+    'Extra cheese',
+    'Mushroom',
+    'Onion',
+    'Pepperoni',
+    'Sausage',
+    'Tomato',
+  ];
   ngOnInit(): void {}
 }
 

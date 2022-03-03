@@ -1,5 +1,5 @@
 
-<h2 mat-dialog-title>Map Settings</h2>
+<h2 mat-dialog-title><strong>Map Settings</strong></h2>
 <mat-dialog-content class="mat-typography">
 <div
   class="container"
@@ -8,10 +8,10 @@
   fxLayoutGap="25rem"
   fxLayout.gt-md="row"
 >
-  <section>
+  <div>
    <mat-toolbar class="custom-toolbar">
-  <mat-icon>gps_fixed</mat-icon>
-  <span></span>
+     <mat-icon>gps_fixed</mat-icon>
+     <!-- <span class="fill-remaining-space"></span> -->
   <mat-label>Cluster Radius</mat-label> <span></span>
   <mat-form-field appearance="standard">
     <input type="search" matInput placeholder="" class="input-custom"/>
@@ -19,8 +19,8 @@
   <span></span>
   <mat-label>M</mat-label>
 </mat-toolbar>
-  </section>
-  <section>
+  </div>
+  <div>
      <mat-toolbar class="custom-toolbar">
   <mat-icon>import_export</mat-icon>
   <div class="
@@ -32,67 +32,131 @@
               justify-content-between
             ">
           <mat-label for="cumulative">Cumulative</mat-label>
-          <mat-slide-toggle color="primary" formControlName="cumilative" checked="true"></mat-slide-toggle>
+          <mat-slide-toggle color="primary" formControlName="cumilative" checked=""></mat-slide-toggle>
         </div>
-  <!-- <span></span>
-  <mat-label>Geo Fencing</mat-label> <span></span>
-  <mat-form-field appearance="standard">
-    <input type="search" matInput placeholder="" class="input-custom" />
-  </mat-form-field>
-  <span></span>
-  <mat-label>M</mat-label> -->
+
 </mat-toolbar>
-  </section>
+  </div>
 
 </div>
-  <!-- <div class="container" >
 
-<mat-toolbar class="custom-toolbar">
+<h2 mat-dialog-title><strong> Duplication Event Configuration</strong></h2>
+<div
+  class="container"
+  fxLayout="column"
+
+  fxLayoutGap="15rem"
+  fxLayout.gt-md="row"
+>
+  <div>
+   <mat-toolbar class="custom-toolbar">
   <mat-icon>gps_fixed</mat-icon>
   <span></span>
   <mat-label>Cluster Radius</mat-label> <span></span>
-  <mat-form-field>
-    <input type="search" matInput placeholder="Search" />
+  <mat-form-field appearance="standard">
+    <input type="search" matInput placeholder="" class="input-custom"/>
   </mat-form-field>
   <span></span>
   <mat-label>M</mat-label>
 </mat-toolbar>
+  </div>
+  <div>
+   <mat-toolbar class="custom-toolbar">
+  <mat-icon>gps_fixed</mat-icon>
+  <span></span>
+  <mat-label>Cluster Radius</mat-label> <span></span>
+  <mat-form-field appearance="standard">
+    <input type="search" matInput placeholder="" class="input-custom"/>
+  </mat-form-field>
+  <span></span>
+  <mat-label>M</mat-label>
+</mat-toolbar>
+  </div>
 
-    <mat-icon>gps_fixed</mat-icon>
-    <span></span>
-    <mat-label>Cluster Radius</mat-label> <span></span>
-     <mat-form-field>
-       <input type="search" matInput placeholder="Search" />
-      </mat-form-field>
-    <span></span>
-    <mat-label>M</mat-label>
-</div> -->
+</div>
 
-    <!-- <mat-form-field appearance="outline">
-       <span class="example-spacer"></span>
-      <mat-icon matPrefix class="example-icon">search</mat-icon>
-      <input type="search" matInput placeholder="Search" />
-    </mat-form-field>
+<h2 mat-dialog-title><strong>End Event Duration</strong></h2>
+<div
+  class="container"
+  fxLayout="column"
 
-    <mat-form-field appearance="outline">
-      <mat-select value="">
-        <mat-option >
-           name
-        </mat-option>
-      </mat-select>
-    </mat-form-field> -->
+  fxLayoutGap="15rem"
+  fxLayout.gt-md="row"
+>
+  <div>
+   <mat-toolbar class="custom-toolbar">
+  <mat-icon>gps_fixed</mat-icon>
+  <span></span>
+  <mat-label>Cluster Radius</mat-label> <span></span>
+  <mat-form-field appearance="standard">
+    <input type="search" matInput placeholder="" class="input-custom"/>
+  </mat-form-field>
+  <span></span>
+  <mat-label>M</mat-label>
+</mat-toolbar>
+  </div>
+  <div>
+   <mat-toolbar class="custom-toolbar">
+  <mat-icon>gps_fixed</mat-icon>
+  <span></span>
+  <mat-label>Cluster Radius</mat-label> <span></span>
+  <mat-form-field appearance="standard">
+    <input type="search" matInput placeholder="" class="input-custom"/>
+  </mat-form-field>
+  <span></span>
+  <mat-label>M</mat-label>
+</mat-toolbar>
+  </div>
 
+</div>
 
+<div
+  class="container"
+  fxLayout="row"
+  fxLayout.gt-md="column"
+>
+
+<mat-form-field appearance="fill">
+  <mat-label>Toppings</mat-label>
+  <mat-select [formControl]="toppings" multiple>
+    <mat-select-trigger>
+      {{toppings.value ? toppings.value[0] : ''}}
+      <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
+        (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+    </mat-select-trigger>
+    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Toppings</mat-label>
+  <mat-select [formControl]="toppings" multiple>
+    <mat-select-trigger>
+      {{toppings.value ? toppings.value[0] : ''}}
+      <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
+        (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+    </mat-select-trigger>
+    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
 </mat-dialog-content>
 
-<h2 mat-dialog-title>End Event Duration</h2>
-<mat-dialog-content class="mat-typography">
-  <h3>Develop across all platforms</h3>
-  <p>Learn one way to build applications with Angular and reuse your code and abilities to build
-    apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
-</mat-dialog-content>
 
-<mat-dialog-actions align="start">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button class="d-flex" mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+
+<mat-dialog-actions align="end">
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxFlexAlign="end end">
+    <div class="reset-btn">
+      <button mat-flat-button color="primary">
+        Reset</button>
+      </div>
+    <button mat-raised-button  [disabled]="true" >
+        Save</button>
+    <button mat-raised-button color="secondary" [mat-dialog-close]="true">
+        Cancel</button>
+
+</div>
+
 </mat-dialog-actions>
