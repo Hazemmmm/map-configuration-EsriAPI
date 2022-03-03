@@ -11,11 +11,6 @@
   flex: 1 1 auto;
 }
 
-.custom-toolbar{
-  border: 1px solid black !important;
-  border-radius: 10px;
-}
-
 
 .space-between-container {
   border: 1px solid #808080;
@@ -25,7 +20,52 @@
 }
 
 
-.reset-btn{
+:host ::ng-deep .reset-btn{
       position: absolute;
     right: 125rem !important;
+}
+
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 33px;
+    width: 110%;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: lighter;
+    font-size: larger;
+}
+::ng-deep .mat-form-field-flex {
+    width: 25rem !important;
+    left: 1.5rem !important;
+    top: 10px !important;
+    height: 4rem !important;
+    background-color:whitesmoke;
+}
+
+  h2 {
+    margin-top: 3rem ;
+  }
+
+h6.label-custom {
+    margin-left: 3rem;
+    font-size: smaller;
+    font-weight: lighter;
+}
+:host ::ng-deep .custom-toolbar {
+    border: 0.2px solid darkgrey !important;
+    border-radius: 5px;
+}
+
+.mat-slide-toggle {
+    margin-left: 28rem;
+    display: inline-block;
+    height: 26px;
+    max-width: 101%;
+    line-height: 26px;
+    white-space: nowrap;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }

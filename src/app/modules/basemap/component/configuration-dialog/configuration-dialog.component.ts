@@ -9,12 +9,17 @@ import {
 
 
 import { ErrorStateMatcher } from '@angular/material/core';import {  MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MapTypes } from '../../models/MapTypes';
 @Component({
   selector: 'app-configuration-dialog',
   templateUrl: './configuration-dialog.component.html',
   styleUrls: ['./configuration-dialog.component.css'],
 })
+
+
+
 export class ConfigurationDialogComponent implements OnInit {
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   facultadareas: any;
   depcentros: any;
@@ -25,15 +30,19 @@ export class ConfigurationDialogComponent implements OnInit {
   ]);
 
   matcher = new MyErrorStateMatcher();
-  toppings = new FormControl();
+  mapType = new FormControl();
 
-  toppingList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
+  mapTypes: MapTypes[] = [
+    {
+      id: 1,
+      name: 'Feature',
+      subType: ["Dynamic", "cached"]
+    },
+    {
+      id: 2,
+      name: 'Basemap',
+      subType:  ['Imagery', 'Topographic']
+    },
   ];
   ngOnInit(): void {}
 }
@@ -52,3 +61,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     );
   }
 }
+
+
+
