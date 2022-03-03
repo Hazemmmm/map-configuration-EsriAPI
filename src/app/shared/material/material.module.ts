@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 @NgModule({
   imports: [
     MatDialogModule,
@@ -20,6 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     MatToolbarModule,
     FlexLayoutModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatDialogModule,
@@ -32,6 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     MatToolbarModule,
     FlexLayoutModule,
+    MatSlideToggleModule,
   ],
 })
 export class MaterialModule {}
