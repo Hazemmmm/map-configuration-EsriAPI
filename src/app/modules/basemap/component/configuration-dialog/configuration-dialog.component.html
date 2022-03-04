@@ -15,8 +15,8 @@
   <mat-form-field appearance="outline">
     <input type="number" matInput placeholder="" formControlName="cluster" class="input-custom"/>
     <mat-error *ngIf="formService.form.controls['cluster'].errors?.['required']">This field is mandatory.</mat-error>
-    <mat-error *ngIf="formService.form.controls['cluster'].errors?.['patterns']">XXX.</mat-error>
-    <mat-error *ngIf="formService.form.controls['cluster']?.value==0" >Zero is not Allowed -value must be 0.01 - 99</mat-error>
+    <mat-error *ngIf="formService.form.controls['cluster'].errors?.['patterns']">pattern is XXX.XX</mat-error>
+    <mat-error *ngIf="formService.form.controls['cluster']?.value===0" >Zero is not Allowed</mat-error>
   <mat-error *ngIf="formService.form.controls['cluster']?.value >= 99" >value must be between 0.001 - 99</mat-error>
   </mat-form-field>
   <h6 class="label-custom">M</h6>
@@ -46,7 +46,10 @@
     <input type="number" matInput placeholder="" formControlName="timeBuffer" class="input-custom"/>
      <mat-error *ngIf="formService.form.controls['timeBuffer'].errors?.['required']">This field is mandatory.</mat-error>
     <mat-error *ngIf="formService.form.controls['timeBuffer'].value === 0" >Zero is not Allowed</mat-error>
+     <mat-error *ngIf="formService.form.controls['timeBuffer'].errors?.['patterns']">pattern is XXX.XX</mat-error>
      <mat-error *ngIf="formService.form.controls['timeBuffer']?.value >= 99" >value must be between 0.001 - 99</mat-error>
+
+
   </mat-form-field>
 
   <h6 class="label-custom">Minutes</h6>
@@ -60,8 +63,9 @@
   <mat-form-field appearance="outline">
     <input type="number" matInput placeholder="" formControlName="locationBuffer" class="input-custom" />
      <mat-error *ngIf="formService.form.controls['locationBuffer'].errors?.['required']">This field is mandatory.</mat-error>
+    <mat-error *ngIf="formService.form.controls['locationBuffer'].errors?.['patterns']">pattern is XXX.XX</mat-error>
     <mat-error *ngIf="formService.form.controls['locationBuffer'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
-         <mat-error *ngIf="formService.form.controls['locationBuffer']?.value >= 99" >value must be between 0.001 - 99</mat-error>
+    <mat-error *ngIf="formService.form.controls['locationBuffer']?.value >= 99" >value must be between 0.001 - 99</mat-error>
 
   </mat-form-field>
 
@@ -86,8 +90,9 @@
   <mat-form-field appearance="outline">
     <input type="number" matInput placeholder="" formControlName="duration" class="input-custom" />
      <mat-error *ngIf="formService.form.controls['duration'].errors?.['required']">This field is mandatory.</mat-error>
+    <mat-error *ngIf="formService.form.controls['duration'].errors?.['patterns']">pattern is XXX.XX</mat-error>
     <mat-error *ngIf="formService.form.controls['duration'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
-             <mat-error *ngIf="formService.form.controls['duration']?.value >= 99" >value must be between 0.001 - 99</mat-error>
+     <mat-error *ngIf="formService.form.controls['duration']?.value >= 99" >value must be between 0.001 - 99</mat-error>
 
   </mat-form-field>
   <h6 class="label-custom">Minutes</h6>
@@ -105,19 +110,24 @@
 <mat-form-field appearance="outline">
   <mat-label>Map Types</mat-label>
 
-  <mat-select [formControl]="mapType" formControlName="mapTypes" >
-    <mat-option *ngFor="let type of mapTypes" [value]="type.name">{{type.name}}</mat-option>
+  <mat-select  formControlName="mapTypes" (selectionChange)="selected($event)" >
+    <mat-option *ngFor="let type of mapTypes" [value]="type">{{type}}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field appearance="outline">
   <mat-label>Map Sub Types</mat-label>
-  <mat-select [formControl]="mapType" formControlName="mapSubTypes">
-
-
-      <mat-option *ngFor="let type of mapTypes" [value]="type.subType">
-        <div *ngIf="type.id"> {{type.subType}} </div>
-      </mat-option>
+  <mat-select  formControlName="mapSubTypes">
+      <div *ngIf="isFeature">
+        <mat-option *ngFor="let subtype of featureSubTypes" [value]="subtype">
+          {{subtype}}
+        </mat-option>
+      </div>
+       <div *ngIf="!isFeature">
+        <mat-option *ngFor="let subtype of basemapSubTypes" [value]="subtype">
+          {{subtype}}
+        </mat-option>
+      </div>
 
   </mat-select>
 </mat-form-field>

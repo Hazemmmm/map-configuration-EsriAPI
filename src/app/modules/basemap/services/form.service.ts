@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  constructor() {}
+  constructor(public fb: FormBuilder) {}
 
   mapConfiguration: any[] = [];
   form: FormGroup = new FormGroup({
@@ -26,10 +26,13 @@ export class FormService {
       Validators.required,
       Validators.pattern('^d+.?d{0,3}$'),
     ]),
-    mapTypes: new FormControl(0),
-    mapSubTypes: new FormControl(0),
+    // mapTypes: this.fb.array(['Feature', 'Basemap']),
+    mapTypes: new FormControl(''),
   });
 
+  getMapTypesControl() {
+    return this.form.get('mapTypes') as FormArray;
+  }
   initializeFormGroup(): void {
     this.form.setValue({
       cluster: '',
@@ -37,7 +40,7 @@ export class FormService {
       timeBuffer: '',
       locationBuffer: '',
       duration: '',
-      mapTypes: 0,
+      mapTypes:'' ,
       mapSubTypes: 0,
     });
   }

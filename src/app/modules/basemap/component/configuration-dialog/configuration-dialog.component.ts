@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroupDirective,
   NgForm,
@@ -9,6 +10,7 @@ import {
 
 
 import { ErrorStateMatcher } from '@angular/material/core';import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSelectChange } from '@angular/material/select';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { MapTypes } from '../../models/MapTypes';
 import { FormService } from '../../services/form.service';
@@ -22,24 +24,22 @@ export class ConfigurationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public formService: FormService,
     public dialogRef: MatDialogRef<ConfigurationDialogComponent>,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public fb: FormBuilder
   ) {}
   matcher = new MyErrorStateMatcher();
-  mapType = new FormControl();
+  mapType = new FormControl([]);
   inputPattern = '^d+.?d{0,3}$';
-  mapTypes: MapTypes[] = [
-    {
-      id: 1,
-      name: 'Feature',
-      subType: ['Dynamic', 'cached'],
-    },
-    {
-      id: 2,
-      name: 'Basemap',
-      subType: ['Imagery', 'Topographic'],
-    },
-  ];
+  // mapTypes!: any[];
+  // mapTypesArr = this.fb.array(['Feature', 'Basemap'])
+  mapTypes: string[] = ['Feature', 'Basemap'];
+  featureSubTypes: string[] = ['Dynamic', 'cached'];
+  basemapSubTypes: string[] = ['Imagery', 'Topographic'];
+
+  isFeature!: boolean;
+
   ngOnInit(): void {
+    // this.mapTypes = this.formService.getMapTypesControl().value;
     this.formService.getMapConfiguration();
   }
 
@@ -64,6 +64,12 @@ export class ConfigurationDialogComponent implements OnInit {
     this.formService.form.reset();
     this.formService.initializeFormGroup();
     this.dialogRef.close();
+  }
+  selected(event: any) {
+    let flag =
+      event.value === this.mapTypes[0]
+        ? (this.isFeature = true)
+        : (this.isFeature = false);
   }
 }
 
