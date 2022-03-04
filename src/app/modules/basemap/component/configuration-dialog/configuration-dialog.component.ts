@@ -26,6 +26,7 @@ export class ConfigurationDialogComponent implements OnInit {
   ) {}
   matcher = new MyErrorStateMatcher();
   mapType = new FormControl();
+  inputPattern = '^d+.?d{0,3}$';
   mapTypes: MapTypes[] = [
     {
       id: 1,
@@ -50,13 +51,13 @@ export class ConfigurationDialogComponent implements OnInit {
       this.formService.updateMapConfiguartion(this.formService.form.value);
       this.formService.form.reset();
       this.formService.initializeFormGroup();
-      this.notificationService.warn("Will be reset?!")
+      this.notificationService.warn('Will be reset?!');
       this.onClose();
     }
   }
   onReset(): void {
     this.formService.form.reset();
-    this.formService.initializeFormGroup();
+    // this.formService.initializeFormGroup();
   }
 
   onClose(): void {

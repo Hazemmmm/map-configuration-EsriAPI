@@ -10,6 +10,7 @@ import {
 import esri = __esri;
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfigurationDialogComponent } from "../../configuration-dialog/configuration-dialog.component";
+import { FormService } from "../../../services/form.service";
 @Component({
   selector: 'app-table-map',
   templateUrl: './table-map.component.html',
@@ -25,7 +26,8 @@ export class TableMapComponent implements OnInit {
   constructor(
     private mapService: EsriMapService,
     private dialogService: DialogService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public formService: FormService
   ) {}
 
   public ngOnInit(): void {
@@ -100,9 +102,9 @@ export class TableMapComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "100%"
-
+    dialogConfig.width = '100%';
 
     this.dialog.open(ConfigurationDialogComponent, dialogConfig);
+    this.formService.initializeFormGroup();
   }
 }

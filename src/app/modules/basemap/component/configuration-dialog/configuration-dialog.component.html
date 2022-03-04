@@ -1,6 +1,5 @@
 <form [formGroup]="formService.form"  class="normal-form" (submit)="onSubmit()">
 
-
 <h2 mat-dialog-title><strong>Map Settings</strong></h2>
 <mat-dialog-content class="mat-typography">
 <div
@@ -14,10 +13,11 @@
      <mat-icon>gps_fixed</mat-icon>
   <mat-label>Cluster Radius</mat-label> <span></span>
   <mat-form-field appearance="outline">
-    <input type="number" matInput placeholder="" formControlName="cluster" class="input-custom"/>
-  <mat-error *ngIf="formService.form.controls['cluster'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
-
-
+    <input type="number" matInput placeholder="" formControlName="cluster" class="input-custom" pattern="^d+.?d{0,3}$"/>
+    <mat-error *ngIf="formService.form.controls['cluster'].errors?.['required']">This field is mandatory.</mat-error>
+    <mat-error *ngIf="formService.form.controls['cluster'].errors?.['patterns']">XXX.</mat-error>
+    <mat-error *ngIf="formService.form.controls['cluster']?.value==0" >Zero is not Allowed -value must be 0.01 - 99</mat-error>
+  <mat-error *ngIf="formService.form.controls['cluster']?.value >= 99" >value must be between 0.001 - 99</mat-error>
   </mat-form-field>
   <h6 class="label-custom">M</h6>
 </mat-toolbar>
@@ -43,8 +43,10 @@
   <mat-icon>access_time</mat-icon>
   <mat-label>Time Buffer</mat-label> <span></span>
   <mat-form-field appearance="outline">
-    <input type="number" matInput placeholder="" formControlName="timeBuffer" class="input-custom"/>
-     <mat-error *ngIf="formService.form.controls['timeBuffer'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
+    <input type="number" matInput placeholder="" formControlName="timeBuffer" class="input-custom" pattern="^d+.?d{0,3}$"/>
+     <mat-error *ngIf="formService.form.controls['timeBuffer'].errors?.['required']">This field is mandatory.</mat-error>
+    <mat-error *ngIf="formService.form.controls['timeBuffer'].value === 0" >Zero is not Allowed</mat-error>
+     <mat-error *ngIf="formService.form.controls['timeBuffer']?.value >= 99" >value must be between 0.001 - 99</mat-error>
   </mat-form-field>
 
   <h6 class="label-custom">Minutes</h6>
@@ -56,8 +58,11 @@
 
   <mat-label>Location Buffer</mat-label> <span></span>
   <mat-form-field appearance="outline">
-    <input type="number" matInput placeholder="" formControlName="locationBuffer" class="input-custom"/>
-     <mat-error *ngIf="formService.form.controls['locationBuffer'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
+    <input type="number" matInput placeholder="" formControlName="locationBuffer" class="input-custom" pattern="^d+.?d{0,3}$"/>
+     <mat-error *ngIf="formService.form.controls['locationBuffer'].errors?.['required']">This field is mandatory.</mat-error>
+    <mat-error *ngIf="formService.form.controls['locationBuffer'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
+         <mat-error *ngIf="formService.form.controls['locationBuffer']?.value >= 99" >value must be between 0.001 - 99</mat-error>
+
   </mat-form-field>
 
   <h6 class="label-custom">KM</h6>
@@ -79,8 +84,11 @@
   <mat-icon>access_time</mat-icon>
   <mat-label>Duration</mat-label>
   <mat-form-field appearance="outline">
-    <input type="number" matInput placeholder="" formControlName="duration" class="input-custom"/>
-     <mat-error *ngIf="formService.form.controls['duration'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
+    <input type="number" matInput placeholder="" formControlName="duration" class="input-custom" pattern="^d+.?d{0,3}$"/>
+     <mat-error *ngIf="formService.form.controls['duration'].errors?.['required']">This field is mandatory.</mat-error>
+    <mat-error *ngIf="formService.form.controls['duration'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
+             <mat-error *ngIf="formService.form.controls['duration']?.value >= 99" >value must be between 0.001 - 99</mat-error>
+
   </mat-form-field>
   <h6 class="label-custom">Minutes</h6>
 </mat-toolbar>

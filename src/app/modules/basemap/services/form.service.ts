@@ -9,11 +9,11 @@ export class FormService {
 
   mapConfiguration: any[] = [];
   form: FormGroup = new FormGroup({
-    cluster: new FormControl('', Validators.required),
+    cluster: new FormControl('',Validators.required),
     geoRefrence: new FormControl(true),
     timeBuffer: new FormControl('', Validators.required),
-    locationBuffer: new FormControl('', Validators.required),
-    duration: new FormControl('', Validators.required),
+    locationBuffer: new FormControl('', Validators.required ),
+    duration: new FormControl('',  Validators.required),
     mapTypes: new FormControl(0),
     mapSubTypes: new FormControl(0),
   });
@@ -34,7 +34,6 @@ export class FormService {
   getMapConfiguration(): any[] {
     return [...this.mapConfiguration];
   }
-
 
   addMapConfiguration(configuration: any): void {
     this.mapConfiguration.push({
