@@ -8,43 +8,47 @@ import {
 
 
 
-import { ErrorStateMatcher } from '@angular/material/core';import {  MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ErrorStateMatcher } from '@angular/material/core';import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MapTypes } from '../../models/MapTypes';
+import { FormService } from '../../services/form.service';
 @Component({
   selector: 'app-configuration-dialog',
   templateUrl: './configuration-dialog.component.html',
   styleUrls: ['./configuration-dialog.component.css'],
 })
-
-
-
 export class ConfigurationDialogComponent implements OnInit {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
-  facultadareas: any;
-  depcentros: any;
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public formService: FormService,
+    public dialogRef: MatDialogRef<ConfigurationDialogComponent>
+  ) {}
   matcher = new MyErrorStateMatcher();
   mapType = new FormControl();
-
   mapTypes: MapTypes[] = [
     {
       id: 1,
       name: 'Feature',
-      subType: ["Dynamic", "cached"]
+      subType: ['Dynamic', 'cached'],
     },
     {
       id: 2,
       name: 'Basemap',
-      subType:  ['Imagery', 'Topographic']
+      subType: ['Imagery', 'Topographic'],
     },
   ];
   ngOnInit(): void {}
+
+  onSubmit(): void {}
+  onReset(): void {
+    this.formService.form.reset();
+    this.formService.initializeFormGroup();
+  }
+
+  onClose(): void {
+    this.formService.form.reset();
+    this.formService.initializeFormGroup();
+    this.dialogRef.close();
+  }
 }
 
 
