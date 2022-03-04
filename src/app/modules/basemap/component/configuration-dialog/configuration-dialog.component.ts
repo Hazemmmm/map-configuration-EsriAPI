@@ -9,6 +9,7 @@ import {
 
 
 import { ErrorStateMatcher } from '@angular/material/core';import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { MapTypes } from '../../models/MapTypes';
 import { FormService } from '../../services/form.service';
 @Component({
@@ -20,7 +21,8 @@ export class ConfigurationDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public formService: FormService,
-    public dialogRef: MatDialogRef<ConfigurationDialogComponent>
+    public dialogRef: MatDialogRef<ConfigurationDialogComponent>,
+    private notificationService: NotificationService
   ) {}
   matcher = new MyErrorStateMatcher();
   mapType = new FormControl();
@@ -36,16 +38,19 @@ export class ConfigurationDialogComponent implements OnInit {
       subType: ['Imagery', 'Topographic'],
     },
   ];
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formService.getMapConfiguration();
+  }
 
   onSubmit(): void {
     if (this.formService.form.valid) {
       this.formService.addMapConfiguration(this.formService.form.value);
-    }
-    else {
+      this.notificationService.onSucess('Submitted Sucessfully!');
+    } else {
       this.formService.updateMapConfiguartion(this.formService.form.value);
       this.formService.form.reset();
       this.formService.initializeFormGroup();
+      this.notificationService.warn("Will be reset?!")
       this.onClose();
     }
   }

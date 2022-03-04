@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatToolbarModule,
     FlexLayoutModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatDialogModule,
@@ -36,6 +38,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatToolbarModule,
     FlexLayoutModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
   ],
 })
 export class MaterialModule {}
