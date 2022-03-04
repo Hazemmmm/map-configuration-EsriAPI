@@ -9,11 +9,23 @@ export class FormService {
 
   mapConfiguration: any[] = [];
   form: FormGroup = new FormGroup({
-    cluster: new FormControl('',Validators.required),
+    cluster: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^d+.?d{0,3}$'),
+    ]),
     geoRefrence: new FormControl(true),
-    timeBuffer: new FormControl('', Validators.required),
-    locationBuffer: new FormControl('', Validators.required ),
-    duration: new FormControl('',  Validators.required),
+    timeBuffer: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^d+.?d{0,3}$'),
+    ]),
+    locationBuffer: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^d+.?d{0,3}$'),
+    ]),
+    duration: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^d+.?d{0,3}$'),
+    ]),
     mapTypes: new FormControl(0),
     mapSubTypes: new FormControl(0),
   });
