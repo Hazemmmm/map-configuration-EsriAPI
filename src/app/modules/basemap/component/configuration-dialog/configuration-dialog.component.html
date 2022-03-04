@@ -14,7 +14,7 @@
      <mat-icon>gps_fixed</mat-icon>
   <mat-label>Cluster Radius</mat-label> <span></span>
   <mat-form-field appearance="outline">
-    <input type="number" matInput placeholder="" formControlName="cluster" class="input-custom"  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"/>
+    <input type="number" matInput placeholder="" formControlName="cluster" class="input-custom"/>
   <mat-error *ngIf="formService.form.controls['cluster'].value===0" >Zero is not Allowed -value must be 0.001 - 99</mat-error>
 
 

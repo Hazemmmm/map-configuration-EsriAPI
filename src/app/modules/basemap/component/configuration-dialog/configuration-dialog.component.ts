@@ -38,7 +38,17 @@ export class ConfigurationDialogComponent implements OnInit {
   ];
   ngOnInit(): void {}
 
-  onSubmit(): void {}
+  onSubmit(): void {
+    if (this.formService.form.valid) {
+      this.formService.addMapConfiguration(this.formService.form.value);
+    }
+    else {
+      this.formService.updateMapConfiguartion(this.formService.form.value);
+      this.formService.form.reset();
+      this.formService.initializeFormGroup();
+      this.onClose();
+    }
+  }
   onReset(): void {
     this.formService.form.reset();
     this.formService.initializeFormGroup();
